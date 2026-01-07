@@ -1,0 +1,78 @@
+---
+import { UserButton } from '@clerk/astro/components';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Dashboard' } = Astro.props;
+---
+
+<header class="bg-white shadow-sm border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo / Brand -->
+      <div class="flex items-center">
+        <h1 class="text-2xl font-bold text-gray-900">{title}</h1>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a 
+          href="/dashboard" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Dashboard
+        </a>
+        <a 
+          href="/dashboard/grants" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Grants
+        </a>
+        <a 
+          href="/dashboard/partners" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Partners
+        </a>
+        <a 
+          href="/dashboard/meetings" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Meetings
+        </a>
+        <a 
+          href="/dashboard/documents" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Documents
+        </a>
+        <a 
+          href="/dashboard/profile" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Profile
+        </a>
+        <a 
+          href="/dashboard/settings" 
+          class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition"
+        >
+          Settings
+        </a>
+      </nav>
+
+      <!-- User Menu -->
+      <div class="flex items-center space-x-4">
+        <UserButton 
+          afterSignOutUrl="/"
+          appearance={{
+            elements: {
+              avatarBox: "w-10 h-10"
+            }
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</header>

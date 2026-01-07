@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Charis Foundation Board Portal">
+  <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div class="text-center max-w-4xl px-4">
+      <div class="mb-8">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">
+          Charis Foundation
+        </h1>
+        <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <p class="text-2xl text-gray-700 font-medium mb-3">
+          Board Member Portal
+        </p>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          "Participating in God's work in the world by offering financial, strategic and operational support in collaboration with Christian organizations and their leaders."
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+          Secure Board Access
+        </h2>
+        <p class="text-gray-600 mb-6">
+          Access grant applications, financial reports, meeting materials, and partner information
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/sign-in" 
+            class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-medium text-lg shadow-md"
+          >
+            Board Member Sign In
+          </a>
+          <a 
+            href="/sign-up" 
+            class="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition font-medium text-lg"
+          >
+            Create Account
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Grant Management</h3>
+          <p class="text-sm text-gray-600">Review applications and track partner organizations</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Board Meetings</h3>
+          <p class="text-sm text-gray-600">Access agendas, materials, and meeting records</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Financial Reports</h3>
+          <p class="text-sm text-gray-600">View financial statements and investment reports</p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-sm text-gray-500">
+        <p>Charis Foundation • Nashville, Tennessee</p>
+        <p class="mt-2">For support, contact: <a href="mailto:info@charisfound.org" class="text-blue-600 hover:text-blue-700">info@charisfound.org</a></p>
+      </div>
+    </div>
+  </main>
+</Layout>

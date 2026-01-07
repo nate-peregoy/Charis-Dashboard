@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SignIn } from '@clerk/astro/components';
+---
+
+<Layout title="Sign In">
+  <main class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900">
+          Sign in to your account
+        </h2>
+        <p class="mt-2 text-sm text-gray-600">
+          Or{' '}
+          <a href="/sign-up" class="font-medium text-blue-600 hover:text-blue-500">
+            create a new account
+          </a>
+        </p>
+      </div>
+      
+      <div class="mt-8 flex justify-center">
+        <SignIn 
+          routing="path"
+          path="/sign-in"
+          signUpUrl="/sign-up"
+          afterSignInUrl="/dashboard"
+        />
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,228 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+const { userId } = Astro.locals.auth();
+if (!userId) {
+  return Astro.redirect('/sign-in');
+}
+
+// Mock meetings data
+const upcomingMeetings = [
+  {
+    id: 1,
+    title: 'Q1 2026 Board Meeting',
+    date: '2026-02-15',
+    time: '9:00 AM - 12:00 PM CST',
+    location: 'Charis Foundation Office',
+    address: '3835 Cleghorn Avenue, Suite 300, Nashville TN 37215',
+    type: 'Board Meeting',
+    agenda: ['Financial Review', 'Grant Approvals', 'Strategic Planning Discussion'],
+    materials: ['Board Package', 'Financial Statements', 'Grant Recommendations']
+  },
+  {
+    id: 2,
+    title: 'Grant Review Committee',
+    date: '2026-03-01',
+    time: '2:00 PM - 4:00 PM CST',
+    location: 'Video Conference',
+    address: 'Zoom Link to be provided',
+    type: 'Committee Meeting',
+    agenda: ['Q2 Grant Applications', 'Site Visit Reports', 'Partner Updates'],
+    materials: ['Application Summaries', 'Due Diligence Reports']
+  },
+  {
+    id: 3,
+    title: 'Strategic Planning Session',
+    date: '2026-04-10',
+    time: '1:00 PM - 5:00 PM CST',
+    location: 'Offsite Retreat',
+    address: 'Location TBD',
+    type: 'Planning Session',
+    agenda: ['2027 Grantmaking Strategy', 'Program Evaluation', 'New Initiatives'],
+    materials: ['Strategic Plan Draft', 'Market Analysis']
+  }
+];
+
+const pastMeetings = [
+  {
+    id: 4,
+    title: 'Q4 2025 Board Meeting',
+    date: '2025-11-20',
+    type: 'Board Meeting',
+    summary: 'Approved annual budget and Q4 grants. Discussed 2026 strategic priorities.',
+    materials: ['Meeting Minutes', 'Approved Budget', 'Grant Decisions']
+  },
+  {
+    id: 5,
+    title: 'Special Board Meeting',
+    date: '2025-10-05',
+    type: 'Special Meeting',
+    summary: 'Emergency grant approval for disaster relief partner.',
+    materials: ['Meeting Minutes', 'Relief Grant Details']
+  },
+  {
+    id: 6,
+    title: 'Q3 2025 Board Meeting',
+    date: '2025-08-18',
+    type: 'Board Meeting',
+    summary: 'Reviewed Q3 financials, approved strategic grants, discussed faith & work program expansion.',
+    materials: ['Meeting Minutes', 'Q3 Financial Report']
+  }
+];
+---
+
+<Layout title="Board Meetings - Charis Foundation">
+  <div class="min-h-screen bg-gray-50">
+    <Header title="Board Meetings" />
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Page Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Board Meetings</h1>
+        <p class="text-gray-600">Schedule, agendas, and materials for board meetings</p>
+      </div>
+
+      <!-- Upcoming Meetings -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Upcoming Meetings</h2>
+        <div class="space-y-6">
+          {upcomingMeetings.map((meeting) => (
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div class="bg-blue-50 border-b border-blue-200 px-6 py-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-900">{meeting.title}</h3>
+                    <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
+                      <span class="flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {meeting.date}
+                      </span>
+                      <span class="flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {meeting.time}
+                      </span>
+                    </div>
+                  </div>
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                    {meeting.type}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                      <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Location
+                    </h4>
+                    <p class="text-gray-700">{meeting.location}</p>
+                    <p class="text-sm text-gray-600 mt-1">{meeting.address}</p>
+                  </div>
+
+                  <div>
+                    <h4 class="font-semibold text-gray-900 mb-2 flex items-center">
+                      <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      Agenda
+                    </h4>
+                    <ul class="space-y-1">
+                      {meeting.agenda.map((item) => (
+                        <li class="text-sm text-gray-700 flex items-start">
+                          <span class="text-blue-600 mr-2">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-200">
+                  <h4 class="font-semibold text-gray-900 mb-3">Meeting Materials</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {meeting.materials.map((material) => (
+                      <button class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition text-left">
+                        <div class="flex items-center">
+                          <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <span class="text-sm font-medium text-gray-900">{material}</span>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="mt-6 flex space-x-3">
+                  <button class="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Add to Calendar
+                  </button>
+                  <button class="flex-1 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Confirm Attendance
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Past Meetings -->
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Past Meetings</h2>
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Meeting</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Summary</th>
+                  <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Materials</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {pastMeetings.map((meeting) => (
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{meeting.date}</td>
+                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{meeting.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                        {meeting.type}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{meeting.summary}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                      <button class="text-blue-600 hover:text-blue-900 font-medium">
+                        View ({meeting.materials.length})
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
