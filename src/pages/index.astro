@@ -2,81 +2,269 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Charis Foundation Board Portal">
-  <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
-    <div class="text-center max-w-4xl px-4">
-      <div class="mb-8">
-        <h1 class="text-5xl font-bold text-gray-900 mb-4">
-          Charis Foundation
-        </h1>
-        <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-        <p class="text-2xl text-gray-700 font-medium mb-3">
-          Board Member Portal
-        </p>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          "Participating in God's work in the world by offering financial, strategic and operational support in collaboration with Christian organizations and their leaders."
-        </p>
-      </div>
-
-      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
-          Secure Board Access
-        </h2>
-        <p class="text-gray-600 mb-6">
-          Access grant applications, financial reports, meeting materials, and partner information
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/sign-in" 
-            class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-medium text-lg shadow-md"
-          >
-            Board Member Sign In
-          </a>
-          <a 
-            href="/sign-up" 
-            class="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition font-medium text-lg"
-          >
-            Create Account
-          </a>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
+<Layout title="Charis Foundation - Board Member Portal">
+  <div style="
+    min-height: 100vh;
+    background: var(--color-bg-base);
+  ">
+    <!-- Header -->
+    <header style="
+      background: var(--color-bg-surface);
+      border-bottom: 0.5px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.98);
+    ">
+      <div style="
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 var(--space-6);
+      ">
+        <div style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 64px;
+        ">
+          <div style="display: flex; align-items: center; gap: var(--space-3);">
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+              border-radius: var(--radius-md);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 700;
+              font-size: 16px;
+              color: white;
+            ">
+              C
+            </div>
+            <h1 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+              letter-spacing: -0.01em;
+              margin: 0;
+            ">
+              Charis Foundation
+            </h1>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Grant Management</h3>
-          <p class="text-sm text-gray-600">Review applications and track partner organizations</p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+          <div style="display: flex; gap: var(--space-3);">
+            <a href="/sign-in" class="btn btn-secondary" style="text-decoration: none;">
+              Sign In
+            </a>
+            <a href="/sign-up" class="btn btn-primary" style="text-decoration: none;">
+              Sign Up
+            </a>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Board Meetings</h3>
-          <p class="text-sm text-gray-600">Access agendas, materials, and meeting records</p>
         </div>
+      </div>
+    </header>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
+    <!-- Hero Section -->
+    <main>
+      <div style="
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: var(--space-12) var(--space-6);
+        text-align: center;
+      ">
+        <div style="
+          max-width: 720px;
+          margin: 0 auto;
+        ">
+          <h1 style="
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-6);
+            line-height: 1.1;
+          ">
+            Board Member Portal
+          </h1>
+          <p style="
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-8);
+            line-height: 1.6;
+          ">
+            "Participating in God's work in the world by offering financial, strategic and operational support in collaboration with Christian organizations and their leaders."
+          </p>
+          <div style="
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+          ">
+            <a href="/sign-up" class="btn btn-primary" style="
+              padding: var(--space-3) var(--space-6);
+              font-size: 14px;
+              text-decoration: none;
+            ">
+              Get Started
+            </a>
+            <a href="/sign-in" class="btn btn-secondary" style="
+              padding: var(--space-3) var(--space-6);
+              font-size: 14px;
+              text-decoration: none;
+            ">
+              Sign In
+            </a>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Financial Reports</h3>
-          <p class="text-sm text-gray-600">View financial statements and investment reports</p>
         </div>
       </div>
 
-      <div class="mt-12 text-sm text-gray-500">
-        <p>Charis Foundation • Nashville, Tennessee</p>
-        <p class="mt-2">For support, contact: <a href="mailto:info@charisfound.org" class="text-blue-600 hover:text-blue-700">info@charisfound.org</a></p>
+      <!-- Features Grid -->
+      <div style="
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: var(--space-12) var(--space-6);
+      ">
+        <div style="
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: var(--space-6);
+        ">
+          <!-- Feature 1 -->
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+          ">
+            <div style="
+              width: 40px;
+              height: 40px;
+              background: var(--color-accent-subtle);
+              border-radius: var(--radius-md);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: var(--space-4);
+            ">
+              <svg style="width: 20px; height: 20px; color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+              margin-bottom: var(--space-2);
+            ">
+              Grant Management
+            </h3>
+            <p style="
+              font-size: 14px;
+              color: var(--color-text-secondary);
+              line-height: 1.6;
+            ">
+              Review applications, track status, and approve grants across all programs
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+          ">
+            <div style="
+              width: 40px;
+              height: 40px;
+              background: var(--color-success-bg);
+              border-radius: var(--radius-md);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: var(--space-4);
+            ">
+              <svg style="width: 20px; height: 20px; color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+              margin-bottom: var(--space-2);
+            ">
+              Partner Directory
+            </h3>
+            <p style="
+              font-size: 14px;
+              color: var(--color-text-secondary);
+              line-height: 1.6;
+            ">
+              Access detailed information on all partner organizations and their programs
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+          ">
+            <div style="
+              width: 40px;
+              height: 40px;
+              background: #fef3c7;
+              border-radius: var(--radius-md);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: var(--space-4);
+            ">
+              <svg style="width: 20px; height: 20px; color: #d97706;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+              margin-bottom: var(--space-2);
+            ">
+              Board Meetings
+            </h3>
+            <p style="
+              font-size: 14px;
+              color: var(--color-text-secondary);
+              line-height: 1.6;
+            ">
+              View upcoming meetings, agendas, minutes, and materials in one place
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+
+    <!-- Footer -->
+    <footer style="
+      border-top: 0.5px solid var(--color-border);
+      background: var(--color-bg-surface);
+      padding: var(--space-8) var(--space-6);
+      margin-top: var(--space-12);
+    ">
+      <div style="
+        max-width: 1280px;
+        margin: 0 auto;
+        text-align: center;
+      ">
+        <p style="
+          font-size: 12px;
+          color: var(--color-text-muted);
+        ">
+          © 2026 Charis Foundation. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
 </Layout>

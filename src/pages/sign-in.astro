@@ -1,31 +1,119 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import { SignIn } from '@clerk/astro/components';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Sign In">
-  <main class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div class="text-center">
-        <h2 class="text-3xl font-bold text-gray-900">
-          Sign in to your account
+<Layout title="Sign In - Charis Foundation">
+  <div style="
+    min-height: 100vh;
+    background: var(--color-bg-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+  ">
+    <div style="
+      width: 100%;
+      max-width: 440px;
+    ">
+      <!-- Header -->
+      <div style="
+        text-align: center;
+        margin-bottom: var(--space-8);
+      ">
+        <div style="
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+          border-radius: var(--radius-lg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 24px;
+          color: white;
+          margin: 0 auto var(--space-4);
+        ">
+          C
+        </div>
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Charis Foundation
+        </h1>
+        <p style="
+          font-size: 14px;
+          color: var(--color-text-secondary);
+        ">
+          Board Member Portal
+        </p>
+      </div>
+
+      <!-- Sign In Card -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-8);
+      ">
+        <h2 style="
+          font-size: 18px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-6);
+          text-align: center;
+        ">
+          Sign In
         </h2>
-        <p class="mt-2 text-sm text-gray-600">
-          Or{' '}
-          <a href="/sign-up" class="font-medium text-blue-600 hover:text-blue-500">
-            create a new account
+        
+        <SignIn 
+          appearance={{
+            elements: {
+              rootBox: "mx-auto",
+              card: "shadow-none border-none bg-transparent p-0",
+              headerTitle: "hidden",
+              headerSubtitle: "hidden",
+              socialButtonsBlockButton: "bg-gray-50 border-gray-200 hover:bg-gray-100",
+              formButtonPrimary: "bg-blue-600 hover:bg-blue-700",
+              footerActionLink: "text-blue-600 hover:text-blue-700"
+            }
+          }}
+        />
+      </div>
+
+      <!-- Footer -->
+      <div style="
+        text-align: center;
+        margin-top: var(--space-6);
+      ">
+        <p style="
+          font-size: 12px;
+          color: var(--color-text-muted);
+        ">
+          Don't have an account? 
+          <a 
+            href="/sign-up" 
+            style="
+              color: var(--color-accent);
+              text-decoration: none;
+              font-weight: 500;
+            "
+          >
+            Sign up
           </a>
         </p>
       </div>
-      
-      <div class="mt-8 flex justify-center">
-        <SignIn 
-          routing="path"
-          path="/sign-in"
-          signUpUrl="/sign-up"
-          afterSignInUrl="/dashboard"
-        />
-      </div>
     </div>
-  </main>
+  </div>
 </Layout>
+
+<style>
+  /* Override Clerk default styles to match our design system */
+  :global(.cl-internal-b3fm6y) {
+    font-family: var(--font-sans) !important;
+  }
+</style>

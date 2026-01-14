@@ -2,219 +2,326 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 
-const { userId } = Astro.locals.auth();
-if (!userId) {
-  return Astro.redirect('/sign-in');
-}
-
-// Mock grant applications data
+// Mock grant data
 const grants = [
   {
-    id: 1,
+    id: 'GR-2026-001',
     organization: 'Nashville Hope Center',
+    program: 'Ministry Leadership Development',
     amount: 50000,
-    program: 'Ministry Leadership Development',
-    status: 'Under Review',
-    submittedDate: '2026-01-05',
-    description: 'Training program for pastoral staff in conflict resolution and organizational leadership',
-    location: 'Nashville, TN'
-  },
-  {
-    id: 2,
-    organization: 'Faith & Work Initiative',
-    amount: 75000,
-    program: 'Faith & Work',
-    status: 'Pending Board Vote',
-    submittedDate: '2025-12-20',
-    description: 'Marketplace mentoring program connecting business leaders with young professionals',
-    location: 'Multiple US Cities'
-  },
-  {
-    id: 3,
-    organization: 'Global Missions Network',
-    amount: 100000,
-    program: 'Strategic Grants',
-    status: 'Under Review',
+    status: 'pending',
     submittedDate: '2026-01-10',
-    description: 'Church planting initiative in Southeast Asia with emphasis on leadership development',
-    location: 'International'
+    requestedDate: '2026-02-01',
   },
   {
-    id: 4,
-    organization: 'Christian Leadership Institute',
-    amount: 45000,
-    program: 'Ministry Leadership Development',
-    status: 'Site Visit Scheduled',
-    submittedDate: '2025-12-15',
-    description: 'Executive coaching program for nonprofit Christian organization leaders',
-    location: 'Nashville, TN'
-  },
-  {
-    id: 5,
-    organization: 'Workplace Ministry Coalition',
-    amount: 60000,
-    program: 'Faith & Work',
-    status: 'Under Review',
+    id: 'GR-2026-002',
+    organization: 'Faith & Work Initiative',
+    program: 'Faith & Work Movement',
+    amount: 75000,
+    status: 'under-review',
     submittedDate: '2026-01-08',
-    description: 'Training materials and workshops for integrating faith in the workplace',
-    location: 'US-Wide'
-  }
+    requestedDate: '2026-02-15',
+  },
+  {
+    id: 'GR-2026-003',
+    organization: 'Global Missions Network',
+    program: 'Strategic Grants',
+    amount: 100000,
+    status: 'approved',
+    submittedDate: '2025-12-20',
+    requestedDate: '2026-01-15',
+  },
+  {
+    id: 'GR-2026-004',
+    organization: 'Urban Ministry Coalition',
+    program: 'Ministry Leadership Development',
+    amount: 45000,
+    status: 'approved',
+    submittedDate: '2025-12-15',
+    requestedDate: '2026-01-05',
+  },
+  {
+    id: 'GR-2026-005',
+    organization: 'Christian Leadership Institute',
+    program: 'Faith & Work Movement',
+    amount: 60000,
+    status: 'pending',
+    submittedDate: '2026-01-12',
+    requestedDate: '2026-02-20',
+  },
 ];
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'Under Review': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    case 'Pending Board Vote': return 'bg-blue-100 text-blue-800 border-blue-200';
-    case 'Site Visit Scheduled': return 'bg-purple-100 text-purple-800 border-purple-200';
-    case 'Approved': return 'bg-green-100 text-green-800 border-green-200';
-    default: return 'bg-gray-100 text-gray-800 border-gray-200';
-  }
+const formatCurrency = (amount: number) => {
+  return `$${(amount / 1000).toFixed(0)}K`;
+};
+
+const getStatusBadge = (status: string) => {
+  const styles = {
+    'pending': 'badge badge-warning',
+    'under-review': 'badge badge-neutral',
+    'approved': 'badge badge-success',
+  };
+  return styles[status as keyof typeof styles] || 'badge badge-neutral';
+};
+
+const getStatusText = (status: string) => {
+  const texts = {
+    'pending': 'Pending',
+    'under-review': 'Under Review',
+    'approved': 'Approved',
+  };
+  return texts[status as keyof typeof texts] || status;
 };
 ---
 
-<Layout title="Grant Applications - Charis Foundation">
-  <div class="min-h-screen bg-gray-50">
-    <Header title="Grant Applications" />
+<Layout title="Grants - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
       <!-- Page Header -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Grant Applications</h1>
-        <p class="text-gray-600">Review and manage grant applications from partner organizations</p>
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Grant Applications
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Review and manage grant applications across all programs
+        </p>
       </div>
 
-      <!-- Filters -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Program</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Programs</option>
-              <option>Ministry Leadership Development</option>
-              <option>Faith & Work</option>
-              <option>Strategic Grants</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Statuses</option>
-              <option>Under Review</option>
-              <option>Pending Board Vote</option>
-              <option>Site Visit Scheduled</option>
-              <option>Approved</option>
-              <option>Declined</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Locations</option>
-              <option>Nashville, TN</option>
-              <option>US-Wide</option>
-              <option>International</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Amount Range</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Amounts</option>
-              <option>Under $50k</option>
-              <option>$50k - $100k</option>
-              <option>Over $100k</option>
-            </select>
+      <!-- Filters & Actions -->
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-4);
+      ">
+        <div style="display: flex; gap: var(--space-2);">
+          <button class="btn btn-secondary">
+            All Applications
+          </button>
+          <button class="btn btn-secondary">
+            Pending
+          </button>
+          <button class="btn btn-secondary">
+            Under Review
+          </button>
+          <button class="btn btn-secondary">
+            Approved
+          </button>
+        </div>
+        <button class="btn btn-primary">
+          + New Application
+        </button>
+      </div>
+
+      <!-- Grants Table -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      ">
+        <table style="
+          width: 100%;
+          border-collapse: collapse;
+        ">
+          <thead>
+            <tr style="
+              background: var(--color-bg-subtle);
+              border-bottom: 0.5px solid var(--color-border);
+            ">
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Grant ID
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Organization
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Program
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: right;
+                font-weight: 500;
+              ">
+                Amount
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Status
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Submitted
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: right;
+                font-weight: 500;
+              ">
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {grants.map((grant, index) => (
+              <tr style={`
+                border-bottom: 0.5px solid var(--color-border);
+                transition: background var(--transition-fast);
+                ${index === grants.length - 1 ? 'border-bottom: none;' : ''}
+              `}
+              onmouseover="this.style.background='var(--color-bg-subtle)'"
+              onmouseout="this.style.background='transparent'">
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  color: var(--color-text-secondary);
+                ">
+                  {grant.id}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  font-weight: 500;
+                  color: var(--color-text-primary);
+                ">
+                  {grant.organization}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  font-size: 12px;
+                  color: var(--color-text-secondary);
+                  max-width: 160px;
+                ">
+                  {grant.program}
+                </td>
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--color-text-primary);
+                  text-align: right;
+                ">
+                  {formatCurrency(grant.amount)}
+                </td>
+                <td style="padding: var(--space-4);">
+                  <span class={getStatusBadge(grant.status)}>
+                    {getStatusText(grant.status)}
+                  </span>
+                </td>
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 12px;
+                  color: var(--color-text-muted);
+                ">
+                  {grant.submittedDate}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  text-align: right;
+                ">
+                  <button class="btn btn-secondary" style="
+                    padding: 6px var(--space-3);
+                    font-size: 12px;
+                  ">
+                    Review
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Cards -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-4);
+        margin-top: var(--space-6);
+      ">
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Pending
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $185K
           </div>
         </div>
-      </div>
 
-      <!-- Grant Applications List -->
-      <div class="space-y-4">
-        {grants.map((grant) => (
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
-            <div class="p-6">
-              <div class="flex items-start justify-between mb-4">
-                <div class="flex-1">
-                  <div class="flex items-center space-x-3 mb-2">
-                    <h3 class="text-xl font-semibold text-gray-900">{grant.organization}</h3>
-                    <span class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(grant.status)}`}>
-                      {grant.status}
-                    </span>
-                  </div>
-                  <div class="flex items-center space-x-4 text-sm text-gray-600">
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                      </svg>
-                      {grant.program}
-                    </span>
-                    <span class="flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      {grant.location}
-                    </span>
-                    <span>Submitted: {grant.submittedDate}</span>
-                  </div>
-                </div>
-                <div class="text-right ml-6">
-                  <p class="text-2xl font-bold text-green-600">
-                    ${grant.amount.toLocaleString()}
-                  </p>
-                </div>
-              </div>
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Approved YTD
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.4M
+          </div>
+        </div>
 
-              <p class="text-gray-700 mb-4">{grant.description}</p>
-
-              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                <div class="flex space-x-3">
-                  <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    View Application
-                  </button>
-                  <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                    </svg>
-                    Add Comment
-                  </button>
-                </div>
-                <button class="inline-flex items-center px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                  Review Details →
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Summary Stats -->
-      <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Application Summary</h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div class="text-center">
-            <p class="text-3xl font-bold text-gray-900">{grants.length}</p>
-            <p class="text-sm text-gray-600 mt-1">Total Applications</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-green-600">
-              ${grants.reduce((sum, g) => sum + g.amount, 0).toLocaleString()}
-            </p>
-            <p class="text-sm text-gray-600 mt-1">Total Requested</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-yellow-600">
-              {grants.filter(g => g.status === 'Under Review').length}
-            </p>
-            <p class="text-sm text-gray-600 mt-1">Under Review</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-blue-600">
-              {grants.filter(g => g.status === 'Pending Board Vote').length}
-            </p>
-            <p class="text-sm text-gray-600 mt-1">Pending Vote</p>
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Avg Grant Size
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $66K
           </div>
         </div>
       </div>

@@ -1,78 +1,310 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
-
-// Get the authenticated user from Clerk
-const { userId } = Astro.locals.auth();
-
-if (!userId) {
-  return Astro.redirect('/sign-in');
-}
 ---
 
-<Layout title="Settings - Dashboard">
-  <div class="min-h-screen bg-gray-50">
-    <Header title="Settings" />
+<Layout title="Settings - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">
-          Dashboard Settings
-        </h2>
-        
-        <div class="space-y-6">
-          <!-- Account Settings -->
-          <div class="border-b border-gray-200 pb-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Account Settings</h3>
-            <div class="space-y-4">
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Settings
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Configure your dashboard preferences
+        </p>
+      </div>
+
+      <!-- Settings Sections -->
+      <div style="
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+      ">
+        <!-- Notifications -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <h2 style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+          ">
+            Notifications
+          </h2>
+          
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+          ">
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-bottom: var(--space-4);
+              border-bottom: 0.5px solid var(--color-border);
+            ">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Email Notifications
-                </label>
-                <label class="inline-flex items-center">
-                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked />
-                  <span class="ml-2 text-sm text-gray-600">Receive email notifications</span>
-                </label>
+                <div style="
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: var(--color-text-primary);
+                  margin-bottom: var(--space-1);
+                ">
+                  Grant Applications
+                </div>
+                <div style="
+                  font-size: 12px;
+                  color: var(--color-text-muted);
+                ">
+                  Receive notifications when new grant applications are submitted
+                </div>
               </div>
-              
+              <label style="
+                position: relative;
+                display: inline-block;
+                width: 44px;
+                height: 24px;
+              ">
+                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                <span style="
+                  position: absolute;
+                  cursor: pointer;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  background-color: var(--color-accent);
+                  transition: var(--transition-fast);
+                  border-radius: 24px;
+                ">
+                  <span style="
+                    position: absolute;
+                    content: '';
+                    height: 18px;
+                    width: 18px;
+                    left: 22px;
+                    bottom: 3px;
+                    background-color: white;
+                    transition: var(--transition-fast);
+                    border-radius: 50%;
+                  "></span>
+                </span>
+              </label>
+            </div>
+
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-bottom: var(--space-4);
+              border-bottom: 0.5px solid var(--color-border);
+            ">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Dashboard Theme
-                </label>
-                <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                  <option>Light</option>
-                  <option>Dark</option>
-                  <option>Auto</option>
-                </select>
+                <div style="
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: var(--color-text-primary);
+                  margin-bottom: var(--space-1);
+                ">
+                  Meeting Reminders
+                </div>
+                <div style="
+                  font-size: 12px;
+                  color: var(--color-text-muted);
+                ">
+                  Get reminders 24 hours before scheduled meetings
+                </div>
               </div>
+              <label style="
+                position: relative;
+                display: inline-block;
+                width: 44px;
+                height: 24px;
+              ">
+                <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                <span style="
+                  position: absolute;
+                  cursor: pointer;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  background-color: var(--color-accent);
+                  transition: var(--transition-fast);
+                  border-radius: 24px;
+                ">
+                  <span style="
+                    position: absolute;
+                    content: '';
+                    height: 18px;
+                    width: 18px;
+                    left: 22px;
+                    bottom: 3px;
+                    background-color: white;
+                    transition: var(--transition-fast);
+                    border-radius: 50%;
+                  "></span>
+                </span>
+              </label>
+            </div>
+
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            ">
+              <div>
+                <div style="
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: var(--color-text-primary);
+                  margin-bottom: var(--space-1);
+                ">
+                  Weekly Digest
+                </div>
+                <div style="
+                  font-size: 12px;
+                  color: var(--color-text-muted);
+                ">
+                  Receive a weekly summary of foundation activities
+                </div>
+              </div>
+              <label style="
+                position: relative;
+                display: inline-block;
+                width: 44px;
+                height: 24px;
+              ">
+                <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                <span style="
+                  position: absolute;
+                  cursor: pointer;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  background-color: var(--color-bg-hover);
+                  transition: var(--transition-fast);
+                  border-radius: 24px;
+                ">
+                  <span style="
+                    position: absolute;
+                    content: '';
+                    height: 18px;
+                    width: 18px;
+                    left: 3px;
+                    bottom: 3px;
+                    background-color: white;
+                    transition: var(--transition-fast);
+                    border-radius: 50%;
+                  "></span>
+                </span>
+              </label>
             </div>
           </div>
+        </div>
 
-          <!-- Privacy Settings -->
-          <div class="border-b border-gray-200 pb-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Privacy</h3>
-            <div class="space-y-4">
-              <label class="inline-flex items-center">
-                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <span class="ml-2 text-sm text-gray-600">Make profile public</span>
+        <!-- Preferences -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <h2 style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+          ">
+            Display Preferences
+          </h2>
+          
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+          ">
+            <div>
+              <label class="label" style="
+                display: block;
+                margin-bottom: var(--space-2);
+              ">
+                Timezone
               </label>
-              
-              <label class="inline-flex items-center">
-                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked />
-                <span class="ml-2 text-sm text-gray-600">Allow search engines to index profile</span>
+              <select style="
+                width: 100%;
+                padding: var(--space-2) var(--space-3);
+                background: var(--color-bg-surface);
+                border: 0.5px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                font-size: 13px;
+                color: var(--color-text-primary);
+                cursor: pointer;
+              ">
+                <option>Central Time (US & Canada)</option>
+                <option>Eastern Time (US & Canada)</option>
+                <option>Mountain Time (US & Canada)</option>
+                <option>Pacific Time (US & Canada)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="label" style="
+                display: block;
+                margin-bottom: var(--space-2);
+              ">
+                Date Format
               </label>
+              <select style="
+                width: 100%;
+                padding: var(--space-2) var(--space-3);
+                background: var(--color-bg-surface);
+                border: 0.5px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                font-size: 13px;
+                color: var(--color-text-primary);
+                cursor: pointer;
+              ">
+                <option>MM/DD/YYYY</option>
+                <option>DD/MM/YYYY</option>
+                <option>YYYY-MM-DD</option>
+              </select>
             </div>
           </div>
+        </div>
 
-          <!-- Save Button -->
-          <div class="flex justify-end">
-            <button 
-              type="button"
-              class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
-            >
-              Save Changes
-            </button>
-          </div>
+        <!-- Actions -->
+        <div style="
+          display: flex;
+          justify-content: flex-end;
+          gap: var(--space-3);
+        ">
+          <button class="btn btn-secondary">
+            Cancel
+          </button>
+          <button class="btn btn-primary">
+            Save Changes
+          </button>
         </div>
       </div>
     </main>

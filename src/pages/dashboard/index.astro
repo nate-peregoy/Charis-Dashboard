@@ -25,213 +25,429 @@ const recentActivity = [
 ---
 
 <Layout title="Board Portal - Charis Foundation">
-  <div class="min-h-screen bg-gray-50">
-    <Header title="Charis Foundation Board Portal" />
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
       <!-- Welcome Section -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-        <div class="flex items-start justify-between">
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        margin-bottom: var(--space-6);
+      ">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
           <div>
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">
-              Welcome, Board Member
+            <h1 style="
+              font-size: 24px;
+              font-weight: 600;
+              letter-spacing: -0.02em;
+              color: var(--color-text-primary);
+              margin-bottom: var(--space-3);
+            ">
+              Board Portal
             </h1>
-            <p class="text-gray-600">
+            <p style="
+              color: var(--color-text-secondary);
+              max-width: 640px;
+              line-height: 1.6;
+            ">
               "Participating in God's work in the world by offering financial, strategic and operational support in collaboration with Christian organizations and their leaders."
             </p>
           </div>
           {userId && (
-            <div class="text-right">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                ✓ Authenticated
-              </span>
+            <div class="badge badge-success" style="flex-shrink: 0;">
+              ✓ Authenticated
             </div>
           )}
         </div>
       </div>
 
-      <!-- Quick Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Pending Reviews</p>
-              <p class="text-3xl font-bold text-blue-600 mt-2">8</p>
-            </div>
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <!-- Quick Stats - Each card designed for its content -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--space-4);
+        margin-bottom: var(--space-8);
+      ">
+        <!-- Pending Reviews Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Pending Reviews
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: var(--color-accent-subtle);
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
           </div>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+          ">
+            8
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Awaiting decision
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">YTD Grants</p>
-              <p class="text-3xl font-bold text-green-600 mt-2">$2.4M</p>
-            </div>
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- YTD Grants Card - Monospace for financial data -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              YTD Grants
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: var(--color-success-bg);
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.4M
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Across all programs
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Active Partners</p>
-              <p class="text-3xl font-bold text-purple-600 mt-2">42</p>
-            </div>
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Active Partners Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Active Partners
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: #f3f4f6;
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: #6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
           </div>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+          ">
+            42
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Organizations supported
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Next Meeting</p>
-              <p class="text-3xl font-bold text-orange-600 mt-2">15</p>
-              <p class="text-xs text-gray-500 mt-1">Days</p>
-            </div>
-            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Next Meeting Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Next Meeting
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: #fef3c7;
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: #d97706;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           </div>
+          <div style="
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-1);
+          ">
+            Feb 15
+          </div>
+          <div style="
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Q1 Board Meeting
+          </div>
         </div>
       </div>
 
-      <!-- Main Content Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Two Column Layout -->
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+        margin-bottom: var(--space-6);
+      ">
         <!-- Pending Grant Applications -->
-        <div class="lg:col-span-2">
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200">
-              <h2 class="text-lg font-semibold text-gray-900">Pending Grant Applications</h2>
-            </div>
-            <div class="p-6">
-              <div class="space-y-4">
-                {pendingGrants.map((grant) => (
-                  <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 transition">
-                    <div class="flex-1">
-                      <h3 class="font-semibold text-gray-900">{grant.organization}</h3>
-                      <p class="text-sm text-gray-600 mt-1">Program: {grant.program}</p>
-                    </div>
-                    <div class="text-right">
-                      <p class="font-bold text-green-600">{grant.amount}</p>
-                      <button class="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium">
-                        Review →
-                      </button>
-                    </div>
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+          ">
+            <h2 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+            ">
+              Pending Grant Applications
+            </h2>
+            <a href="/dashboard/grants" style="
+              font-size: 12px;
+              color: var(--color-accent);
+              text-decoration: none;
+              font-weight: 500;
+            ">
+              View all →
+            </a>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+            {pendingGrants.map((grant) => (
+              <div style="
+                padding: var(--space-3);
+                border: 0.5px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                transition: all var(--transition-fast);
+                cursor: pointer;
+              "
+              onmouseover="this.style.background='var(--color-bg-subtle)'"
+              onmouseout="this.style.background='transparent'">
+                <div style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: start;
+                  margin-bottom: var(--space-2);
+                ">
+                  <div style="
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: var(--color-text-primary);
+                  ">
+                    {grant.organization}
                   </div>
-                ))}
+                  <div class="mono" style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: var(--color-text-primary);
+                  ">
+                    {grant.amount}
+                  </div>
+                </div>
+                <div class="badge badge-neutral" style="font-size: 10px;">
+                  {grant.program}
+                </div>
               </div>
-              <div class="mt-6 pt-4 border-t border-gray-200">
-                <a href="/dashboard/grants" class="text-sm font-medium text-blue-600 hover:text-blue-700">
-                  View all applications →
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="space-y-6">
-          <!-- Upcoming Meetings -->
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200">
-              <h2 class="text-lg font-semibold text-gray-900">Upcoming Meetings</h2>
-            </div>
-            <div class="p-6">
-              <div class="space-y-4">
-                {upcomingMeetings.map((meeting) => (
-                  <div class="border-l-4 border-blue-500 pl-4 py-2">
-                    <p class="font-semibold text-gray-900">{meeting.title}</p>
-                    <p class="text-sm text-gray-600 mt-1">{meeting.date}</p>
-                    <p class="text-sm text-gray-500">{meeting.time}</p>
+        <!-- Recent Activity -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <h2 style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+          ">
+            Recent Activity
+          </h2>
+          
+          <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+            {recentActivity.map((activity, index) => (
+              <div style={`
+                display: flex;
+                gap: var(--space-3);
+                padding-bottom: var(--space-4);
+                ${index !== recentActivity.length - 1 ? 'border-bottom: 0.5px solid var(--color-border);' : ''}
+              `}>
+                <div style="
+                  width: 6px;
+                  height: 6px;
+                  background: var(--color-accent);
+                  border-radius: 50%;
+                  margin-top: 6px;
+                  flex-shrink: 0;
+                "></div>
+                <div style="flex: 1;">
+                  <div style="
+                    font-size: 13px;
+                    color: var(--color-text-primary);
+                    margin-bottom: var(--space-1);
+                  ">
+                    <span style="font-weight: 500;">{activity.action}</span>
+                    <span style="color: var(--color-text-secondary);"> — {activity.organization}</span>
                   </div>
-                ))}
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-200">
-                <a href="/dashboard/meetings" class="text-sm font-medium text-blue-600 hover:text-blue-700">
-                  View calendar →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recent Activity -->
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200">
-              <h2 class="text-lg font-semibold text-gray-900">Recent Activity</h2>
-            </div>
-            <div class="p-6">
-              <div class="space-y-3">
-                {recentActivity.map((activity) => (
-                  <div class="text-sm">
-                    <p class="font-medium text-gray-900">{activity.action}</p>
-                    <p class="text-gray-600">{activity.organization}</p>
-                    <p class="text-gray-400 text-xs mt-1">{activity.date}</p>
+                  <div class="mono" style="
+                    font-size: 11px;
+                    color: var(--color-text-faint);
+                  ">
+                    {activity.date}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      <!-- Quick Actions -->
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <a href="/dashboard/grants" class="block p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-blue-300 transition">
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+      <!-- Upcoming Meetings -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+      ">
+        <h2 style="
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-4);
+        ">
+          Upcoming Meetings
+        </h2>
+        
+        <div style="display: flex; gap: var(--space-4);">
+          {upcomingMeetings.map((meeting) => (
+            <div style="
+              flex: 1;
+              padding: var(--space-4);
+              border: 0.5px solid var(--color-border);
+              border-radius: var(--radius-sm);
+              transition: all var(--transition-fast);
+              cursor: pointer;
+            "
+            onmouseover="this.style.background='var(--color-bg-subtle)'"
+            onmouseout="this.style.background='transparent'">
+              <div class="mono" style="
+                font-size: 11px;
+                color: var(--color-text-faint);
+                margin-bottom: var(--space-2);
+              ">
+                {meeting.date}
+              </div>
+              <div style="
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin-bottom: var(--space-1);
+              ">
+                {meeting.title}
+              </div>
+              <div class="mono" style="
+                font-size: 12px;
+                color: var(--color-text-secondary);
+              ">
+                {meeting.time}
+              </div>
             </div>
-            <div>
-              <h3 class="font-semibold text-gray-900">Grant Applications</h3>
-              <p class="text-sm text-gray-600 mt-1">Review pending grants</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="/dashboard/partners" class="block p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-purple-300 transition">
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900">Partner Organizations</h3>
-              <p class="text-sm text-gray-600 mt-1">View ministry partners</p>
-            </div>
-          </div>
-        </a>
-
-        <a href="/dashboard/documents" class="block p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-green-300 transition">
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900">Documents & Reports</h3>
-              <p class="text-sm text-gray-600 mt-1">Access board materials</p>
-            </div>
-          </div>
-        </a>
+          ))}
+        </div>
       </div>
     </main>
   </div>

@@ -2,254 +2,313 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 
-const { userId } = Astro.locals.auth();
-if (!userId) {
-  return Astro.redirect('/sign-in');
-}
-
-// Mock partner organizations data
+// Mock partner data
 const partners = [
   {
-    id: 1,
+    id: 'P-001',
     name: 'Nashville Hope Center',
-    category: 'Ministry Leadership Development',
-    location: 'Nashville, TN',
-    partnership: '2018-Present',
-    totalGranted: 425000,
-    currentGrant: 50000,
-    status: 'Active',
-    focus: 'Urban ministry, pastoral training, community development',
-    website: 'https://example.org'
+    program: 'Ministry Leadership Development',
+    relationship: 'Multi-Year Partner',
+    totalGranted: 285000,
+    lastGrant: '2025-Q4',
+    status: 'active',
   },
   {
-    id: 2,
+    id: 'P-002',
     name: 'Faith & Work Initiative',
-    category: 'Faith & Work',
-    location: 'Multiple US Cities',
-    partnership: '2020-Present',
-    totalGranted: 380000,
-    currentGrant: 75000,
-    status: 'Active',
-    focus: 'Marketplace ministry, professional discipleship, workplace ethics',
-    website: 'https://example.org'
+    program: 'Faith & Work Movement',
+    relationship: 'Core Partner',
+    totalGranted: 450000,
+    lastGrant: '2026-Q1',
+    status: 'active',
   },
   {
-    id: 3,
+    id: 'P-003',
     name: 'Global Missions Network',
-    category: 'Strategic Grants',
-    location: 'International',
-    partnership: '2015-Present',
-    totalGranted: 850000,
-    currentGrant: 100000,
-    status: 'Active',
-    focus: 'Church planting, missionary support, indigenous leadership',
-    website: 'https://example.org'
+    program: 'Strategic Grants',
+    relationship: 'Strategic Partner',
+    totalGranted: 680000,
+    lastGrant: '2026-Q1',
+    status: 'active',
   },
   {
-    id: 4,
+    id: 'P-004',
+    name: 'Urban Ministry Coalition',
+    program: 'Ministry Leadership Development',
+    relationship: 'Multi-Year Partner',
+    totalGranted: 320000,
+    lastGrant: '2025-Q4',
+    status: 'active',
+  },
+  {
+    id: 'P-005',
     name: 'Christian Leadership Institute',
-    category: 'Ministry Leadership Development',
-    location: 'Nashville, TN',
-    partnership: '2019-Present',
-    totalGranted: 290000,
-    currentGrant: 45000,
-    status: 'Active',
-    focus: 'Executive coaching, organizational development, strategic planning',
-    website: 'https://example.org'
+    program: 'Faith & Work Movement',
+    relationship: 'New Partner',
+    totalGranted: 60000,
+    lastGrant: '2026-Q1',
+    status: 'active',
   },
   {
-    id: 5,
-    name: 'Workplace Ministry Coalition',
-    category: 'Faith & Work',
-    location: 'US-Wide',
-    partnership: '2021-Present',
-    totalGranted: 180000,
-    currentGrant: 60000,
-    status: 'Active',
-    focus: 'Faith integration, workplace chaplaincy, business ethics',
-    website: 'https://example.org'
+    id: 'P-006',
+    name: 'Marketplace Ministries',
+    program: 'Faith & Work Movement',
+    relationship: 'Core Partner',
+    totalGranted: 395000,
+    lastGrant: '2025-Q4',
+    status: 'active',
   },
-  {
-    id: 6,
-    name: 'Reconciliation Project',
-    category: 'Strategic Grants',
-    location: 'Nashville, TN',
-    partnership: '2017-Present',
-    totalGranted: 340000,
-    currentGrant: 0,
-    status: 'Monitoring',
-    focus: 'Racial reconciliation, community healing, gospel witness',
-    website: 'https://example.org'
-  }
 ];
+
+const formatCurrency = (amount: number) => {
+  return `$${(amount / 1000).toFixed(0)}K`;
+};
 ---
 
-<Layout title="Partner Organizations - Charis Foundation">
-  <div class="min-h-screen bg-gray-50">
-    <Header title="Partner Organizations" />
+<Layout title="Partners - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
       <!-- Page Header -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Partner Organizations</h1>
-        <p class="text-gray-600">Christian organizations and ministries we support in God's work</p>
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Partner Organizations
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Organizations we support in their mission to advance God's kingdom
+        </p>
       </div>
 
       <!-- Summary Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p class="text-sm font-medium text-gray-600">Total Partners</p>
-          <p class="text-3xl font-bold text-blue-600 mt-2">{partners.length}</p>
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+      ">
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Partners
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            42
+          </div>
         </div>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p class="text-sm font-medium text-gray-600">Active Grants</p>
-          <p class="text-3xl font-bold text-green-600 mt-2">
-            {partners.filter(p => p.status === 'Active').length}
-          </p>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Granted
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.2M
+          </div>
         </div>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p class="text-sm font-medium text-gray-600">Total Committed</p>
-          <p class="text-3xl font-bold text-purple-600 mt-2">
-            ${partners.reduce((sum, p) => sum + p.totalGranted, 0).toLocaleString()}
-          </p>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Core Partners
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            18
+          </div>
         </div>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p class="text-sm font-medium text-gray-600">Current Year</p>
-          <p class="text-3xl font-bold text-orange-600 mt-2">
-            ${partners.reduce((sum, p) => sum + p.currentGrant, 0).toLocaleString()}
-          </p>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            New in 2026
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            5
+          </div>
         </div>
       </div>
 
-      <!-- Filter -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Program Category</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Categories</option>
-              <option>Ministry Leadership Development</option>
-              <option>Faith & Work</option>
-              <option>Strategic Grants</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Statuses</option>
-              <option>Active</option>
-              <option>Monitoring</option>
-              <option>Completed</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-            <select class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option>All Locations</option>
-              <option>Nashville, TN</option>
-              <option>US-Wide</option>
-              <option>International</option>
-            </select>
-          </div>
-        </div>
+      <!-- Filters -->
+      <div style="
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+      ">
+        <button class="btn btn-secondary">All Partners</button>
+        <button class="btn btn-secondary">Core Partners</button>
+        <button class="btn btn-secondary">Multi-Year</button>
+        <button class="btn btn-secondary">New Partners</button>
       </div>
 
       <!-- Partners Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      ">
         {partners.map((partner) => (
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
-            <div class="p-6">
-              <div class="flex items-start justify-between mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-900 mb-2">{partner.name}</h3>
-                  <div class="flex items-center space-x-2">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      {partner.category}
-                    </span>
-                    <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      partner.status === 'Active' 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {partner.status}
-                    </span>
-                  </div>
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+          "
+          onmouseover="this.style.borderColor='var(--color-border-strong)'"
+          onmouseout="this.style.borderColor='var(--color-border)'">
+            <!-- Header -->
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: start;
+              margin-bottom: var(--space-4);
+            ">
+              <div>
+                <h3 style="
+                  font-size: 16px;
+                  font-weight: 600;
+                  color: var(--color-text-primary);
+                  margin-bottom: var(--space-1);
+                ">
+                  {partner.name}
+                </h3>
+                <div class="mono" style="
+                  font-size: 11px;
+                  color: var(--color-text-faint);
+                ">
+                  {partner.id}
                 </div>
               </div>
+              <span class="badge badge-success">
+                {partner.status}
+              </span>
+            </div>
 
-              <div class="space-y-3 mb-4">
-                <div class="flex items-start text-sm">
-                  <svg class="w-4 h-4 mr-2 mt-0.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span class="text-gray-600">{partner.location}</span>
-                </div>
-                <div class="flex items-start text-sm">
-                  <svg class="w-4 h-4 mr-2 mt-0.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span class="text-gray-600">Partnership: {partner.partnership}</span>
-                </div>
-                <p class="text-sm text-gray-700">{partner.focus}</p>
+            <!-- Program -->
+            <div style="margin-bottom: var(--space-4);">
+              <span class="label" style="
+                display: block;
+                margin-bottom: var(--space-1);
+              ">
+                Program
+              </span>
+              <div style="
+                font-size: 13px;
+                color: var(--color-text-secondary);
+              ">
+                {partner.program}
               </div>
+            </div>
 
-              <div class="grid grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                <div>
-                  <p class="text-xs text-gray-600 mb-1">Total Granted</p>
-                  <p class="text-lg font-bold text-gray-900">${partner.totalGranted.toLocaleString()}</p>
-                </div>
-                <div>
-                  <p class="text-xs text-gray-600 mb-1">Current Grant</p>
-                  <p class="text-lg font-bold text-green-600">
-                    {partner.currentGrant > 0 ? `$${partner.currentGrant.toLocaleString()}` : 'N/A'}
-                  </p>
+            <!-- Relationship & Financials -->
+            <div style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: var(--space-4);
+              padding-top: var(--space-4);
+              border-top: 0.5px solid var(--color-border);
+            ">
+              <div>
+                <span class="label" style="
+                  display: block;
+                  margin-bottom: var(--space-1);
+                ">
+                  Relationship
+                </span>
+                <div style="
+                  font-size: 13px;
+                  color: var(--color-text-primary);
+                  font-weight: 500;
+                ">
+                  {partner.relationship}
                 </div>
               </div>
+              <div>
+                <span class="label" style="
+                  display: block;
+                  margin-bottom: var(--space-1);
+                ">
+                  Total Granted
+                </span>
+                <div class="mono" style="
+                  font-size: 13px;
+                  color: var(--color-text-primary);
+                  font-weight: 600;
+                ">
+                  {formatCurrency(partner.totalGranted)}
+                </div>
+              </div>
+            </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                <a 
-                  href={partner.website} 
-                  target="_blank"
-                  class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
-                >
-                  Visit Website
-                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-                <button class="text-sm text-gray-600 hover:text-gray-900 font-medium">
-                  View Details →
-                </button>
+            <!-- Last Grant -->
+            <div style="
+              margin-top: var(--space-3);
+              padding-top: var(--space-3);
+              border-top: 0.5px solid var(--color-border);
+            ">
+              <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              ">
+                <span class="label">Last Grant</span>
+                <span class="mono" style="
+                  font-size: 12px;
+                  color: var(--color-text-secondary);
+                ">
+                  {partner.lastGrant}
+                </span>
               </div>
             </div>
           </div>
         ))}
-      </div>
-
-      <!-- Program Distribution -->
-      <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Program Distribution</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p class="text-2xl font-bold text-blue-600">
-              {partners.filter(p => p.category === 'Ministry Leadership Development').length}
-            </p>
-            <p class="text-sm text-gray-700 mt-2">Ministry Leadership Development</p>
-          </div>
-          <div class="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
-            <p class="text-2xl font-bold text-purple-600">
-              {partners.filter(p => p.category === 'Faith & Work').length}
-            </p>
-            <p class="text-sm text-gray-700 mt-2">Faith & Work</p>
-          </div>
-          <div class="text-center p-4 bg-green-50 rounded-lg border border-green-200">
-            <p class="text-2xl font-bold text-green-600">
-              {partners.filter(p => p.category === 'Strategic Grants').length}
-            </p>
-            <p class="text-sm text-gray-700 mt-2">Strategic Grants</p>
-          </div>
-        </div>
       </div>
     </main>
   </div>
