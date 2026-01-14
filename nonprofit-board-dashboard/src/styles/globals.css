@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Charis Foundation Brand Colors */
+    --background: 0 0% 98%;
+    --foreground: 210 40% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 40% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 40% 15%;
+    --primary: 210 50% 35%;        /* Deep navy blue - professional and trustworthy */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 30% 85%;       /* Warm beige - approachable */
+    --secondary-foreground: 210 40% 15%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 210 15% 45%;
+    --accent: 25 70% 55%;          /* Warm terracotta - mission-driven energy */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 210 50% 35%;
+    --radius: 0.5rem;
+    
+    /* Additional Charis-specific colors */
+    --charis-navy: 210 50% 35%;
+    --charis-warm: 35 30% 85%;
+    --charis-accent: 25 70% 55%;
+  }
+
+  .dark {
+    --background: 210 30% 12%;
+    --foreground: 210 20% 92%;
+    --card: 210 30% 15%;
+    --card-foreground: 210 20% 92%;
+    --popover: 210 30% 15%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 210 60% 60%;
+    --primary-foreground: 210 30% 12%;
+    --secondary: 210 25% 20%;
+    --secondary-foreground: 210 20% 92%;
+    --muted: 210 25% 20%;
+    --muted-foreground: 210 15% 60%;
+    --accent: 25 65% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 210 20% 92%;
+    --border: 210 25% 22%;
+    --input: 210 25% 22%;
+    --ring: 210 60% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

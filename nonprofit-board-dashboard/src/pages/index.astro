@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DashboardHeader from '../components/DashboardHeader';
+import StatCard from '../components/StatCard';
+import RecentActivity from '../components/RecentActivity';
+---
+
+<Layout title="Charis Foundation - Board Dashboard">
+  <div class="min-h-screen bg-background">
+    <DashboardHeader client:load />
+    
+    <main class="container mx-auto px-4 py-8">
+      <!-- Key Metrics Section -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold mb-4 text-foreground">Grantmaking Overview</h2>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            client:load
+            title="Total Grants (YTD)"
+            value="$1.85M"
+            change="+15% from last year"
+            changeType="positive"
+          />
+          <StatCard
+            client:load
+            title="Active Partners"
+            value="47"
+            change="+8 organizations"
+            changeType="positive"
+          />
+          <StatCard
+            client:load
+            title="Grant Applications"
+            value="12"
+            change="Under review"
+            changeType="neutral"
+          />
+          <StatCard
+            client:load
+            title="Foundation Assets"
+            value="$32.4M"
+            change="+6.2% portfolio growth"
+            changeType="positive"
+          />
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <div class="grid gap-6 md:grid-cols-2">
+        <!-- Recent Activity -->
+        <div class="md:col-span-1">
+          <RecentActivity client:load />
+        </div>
+
+        <!-- Program Impact -->
+        <div class="md:col-span-1">
+          <div class="space-y-6">
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">Strategic Programs</h3>
+                <p class="text-sm text-muted-foreground">Grant distribution by focus area</p>
+              </div>
+              <div class="p-6 pt-0">
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b">
+                    <div>
+                      <p class="text-sm font-medium">Ministry Leadership Development</p>
+                      <p class="text-xs text-muted-foreground">Organizational capacity building</p>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-lg font-bold">$685K</div>
+                      <div class="text-xs text-muted-foreground">37%</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between pb-3 border-b">
+                    <div>
+                      <p class="text-sm font-medium">Faith & Work</p>
+                      <p class="text-xs text-muted-foreground">Workplace ministry & training</p>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-lg font-bold">$425K</div>
+                      <div class="text-xs text-muted-foreground">23%</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between pb-3 border-b">
+                    <div>
+                      <p class="text-sm font-medium">Nashville Ministries</p>
+                      <p class="text-xs text-muted-foreground">Local gospel-driven work</p>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-lg font-bold">$370K</div>
+                      <div class="text-xs text-muted-foreground">20%</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-medium">International Missions</p>
+                      <p class="text-xs text-muted-foreground">Global gospel proclamation</p>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-lg font-bold">$370K</div>
+                      <div class="text-xs text-muted-foreground">20%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Geographic Reach -->
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">Geographic Reach</h3>
+                <p class="text-sm text-muted-foreground">Partner organizations by region</p>
+              </div>
+              <div class="p-6 pt-0">
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm font-medium">Nashville Area</span>
+                    <span class="text-sm"><span class="font-bold">16</span> partners</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm font-medium">United States</span>
+                    <span class="text-sm"><span class="font-bold">18</span> partners</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm font-medium">International</span>
+                    <span class="text-sm"><span class="font-bold">13</span> partners</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission Statement -->
+      <section class="mt-8">
+        <div class="rounded-lg border bg-accent/5 p-6">
+          <div class="max-w-3xl">
+            <h3 class="text-lg font-semibold mb-3 text-foreground">Our Mission</h3>
+            <p class="text-muted-foreground leading-relaxed">
+              The mission of the Charis Foundation is to participate in God's work in the world by offering 
+              financial, strategic and operational support in collaboration with Christian organizations and 
+              their leaders. We seek to support, shepherd, and champion the faithful efforts of our partner 
+              organizations to proclaim and demonstrate the gospel of Jesus Christ.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</Layout>
