@@ -1,0 +1,59 @@
+---
+import { UserProfile } from '@clerk/astro/components';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+---
+
+<Layout title="Profile - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Profile
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Manage your account settings and preferences
+        </p>
+      </div>
+
+      <!-- Profile Card -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+      ">
+        <UserProfile 
+          appearance={{
+            elements: {
+              rootBox: "w-full",
+              card: "shadow-none border-none bg-transparent",
+              navbar: "hidden",
+              pageScrollBox: "p-0"
+            }
+          }}
+        />
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  /* Override Clerk default styles to match our design system */
+  :global(.cl-internal-b3fm6y) {
+    font-family: var(--font-sans) !important;
+  }
+</style>

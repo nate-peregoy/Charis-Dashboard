@@ -1,0 +1,315 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+// Mock partner data
+const partners = [
+  {
+    id: 'P-001',
+    name: 'Nashville Hope Center',
+    program: 'Ministry Leadership Development',
+    relationship: 'Multi-Year Partner',
+    totalGranted: 285000,
+    lastGrant: '2025-Q4',
+    status: 'active',
+  },
+  {
+    id: 'P-002',
+    name: 'Faith & Work Initiative',
+    program: 'Faith & Work Movement',
+    relationship: 'Core Partner',
+    totalGranted: 450000,
+    lastGrant: '2026-Q1',
+    status: 'active',
+  },
+  {
+    id: 'P-003',
+    name: 'Global Missions Network',
+    program: 'Strategic Grants',
+    relationship: 'Strategic Partner',
+    totalGranted: 680000,
+    lastGrant: '2026-Q1',
+    status: 'active',
+  },
+  {
+    id: 'P-004',
+    name: 'Urban Ministry Coalition',
+    program: 'Ministry Leadership Development',
+    relationship: 'Multi-Year Partner',
+    totalGranted: 320000,
+    lastGrant: '2025-Q4',
+    status: 'active',
+  },
+  {
+    id: 'P-005',
+    name: 'Christian Leadership Institute',
+    program: 'Faith & Work Movement',
+    relationship: 'New Partner',
+    totalGranted: 60000,
+    lastGrant: '2026-Q1',
+    status: 'active',
+  },
+  {
+    id: 'P-006',
+    name: 'Marketplace Ministries',
+    program: 'Faith & Work Movement',
+    relationship: 'Core Partner',
+    totalGranted: 395000,
+    lastGrant: '2025-Q4',
+    status: 'active',
+  },
+];
+
+const formatCurrency = (amount: number) => {
+  return `$${(amount / 1000).toFixed(0)}K`;
+};
+---
+
+<Layout title="Partners - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Partner Organizations
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Organizations we support in their mission to advance God's kingdom
+        </p>
+      </div>
+
+      <!-- Summary Stats -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+      ">
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Partners
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            42
+          </div>
+        </div>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Granted
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.2M
+          </div>
+        </div>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Core Partners
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            18
+          </div>
+        </div>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            New in 2026
+          </span>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            5
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div style="
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+      ">
+        <button class="btn btn-secondary">All Partners</button>
+        <button class="btn btn-secondary">Core Partners</button>
+        <button class="btn btn-secondary">Multi-Year</button>
+        <button class="btn btn-secondary">New Partners</button>
+      </div>
+
+      <!-- Partners Grid -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      ">
+        {partners.map((partner) => (
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+          "
+          onmouseover="this.style.borderColor='var(--color-border-strong)'"
+          onmouseout="this.style.borderColor='var(--color-border)'">
+            <!-- Header -->
+            <div style="
+              display: flex;
+              justify-content: space-between;
+              align-items: start;
+              margin-bottom: var(--space-4);
+            ">
+              <div>
+                <h3 style="
+                  font-size: 16px;
+                  font-weight: 600;
+                  color: var(--color-text-primary);
+                  margin-bottom: var(--space-1);
+                ">
+                  {partner.name}
+                </h3>
+                <div class="mono" style="
+                  font-size: 11px;
+                  color: var(--color-text-faint);
+                ">
+                  {partner.id}
+                </div>
+              </div>
+              <span class="badge badge-success">
+                {partner.status}
+              </span>
+            </div>
+
+            <!-- Program -->
+            <div style="margin-bottom: var(--space-4);">
+              <span class="label" style="
+                display: block;
+                margin-bottom: var(--space-1);
+              ">
+                Program
+              </span>
+              <div style="
+                font-size: 13px;
+                color: var(--color-text-secondary);
+              ">
+                {partner.program}
+              </div>
+            </div>
+
+            <!-- Relationship & Financials -->
+            <div style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: var(--space-4);
+              padding-top: var(--space-4);
+              border-top: 0.5px solid var(--color-border);
+            ">
+              <div>
+                <span class="label" style="
+                  display: block;
+                  margin-bottom: var(--space-1);
+                ">
+                  Relationship
+                </span>
+                <div style="
+                  font-size: 13px;
+                  color: var(--color-text-primary);
+                  font-weight: 500;
+                ">
+                  {partner.relationship}
+                </div>
+              </div>
+              <div>
+                <span class="label" style="
+                  display: block;
+                  margin-bottom: var(--space-1);
+                ">
+                  Total Granted
+                </span>
+                <div class="mono" style="
+                  font-size: 13px;
+                  color: var(--color-text-primary);
+                  font-weight: 600;
+                ">
+                  {formatCurrency(partner.totalGranted)}
+                </div>
+              </div>
+            </div>
+
+            <!-- Last Grant -->
+            <div style="
+              margin-top: var(--space-3);
+              padding-top: var(--space-3);
+              border-top: 0.5px solid var(--color-border);
+            ">
+              <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              ">
+                <span class="label">Last Grant</span>
+                <span class="mono" style="
+                  font-size: 12px;
+                  color: var(--color-text-secondary);
+                ">
+                  {partner.lastGrant}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+  </div>
+</Layout>

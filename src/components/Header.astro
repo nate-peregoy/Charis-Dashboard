@@ -1,0 +1,176 @@
+---
+import { UserButton } from '@clerk/astro/components';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Charis Foundation' } = Astro.props;
+
+// Get current path for active state
+const currentPath = Astro.url.pathname;
+---
+
+<header style="
+  background: var(--color-bg-surface);
+  border-bottom: 0.5px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.98);
+">
+  <div style="
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  ">
+    <div style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    ">
+      <!-- Logo / Brand -->
+      <div style="display: flex; align-items: center; gap: var(--space-3);">
+        <div style="
+          width: 32px;
+          height: 32px;
+          background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+          border-radius: var(--radius-md);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 16px;
+          color: white;
+        ">
+          C
+        </div>
+        <h1 style="
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          letter-spacing: -0.01em;
+          margin: 0;
+        ">
+          {title}
+        </h1>
+      </div>
+
+      <!-- Navigation -->
+      <nav style="
+        display: flex;
+        gap: var(--space-1);
+        align-items: center;
+      ">
+        <a 
+          href="/dashboard"
+          style={`
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            font-weight: 500;
+            color: ${currentPath === '/dashboard' ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            background: ${currentPath === '/dashboard' ? 'var(--color-accent-subtle)' : 'transparent'};
+          `}
+          onmouseover="this.style.background = this.style.background === 'transparent' ? 'var(--color-bg-subtle)' : this.style.background"
+          onmouseout="this.style.background = this.dataset.active === 'true' ? 'var(--color-accent-subtle)' : 'transparent'"
+          data-active={currentPath === '/dashboard'}
+        >
+          Dashboard
+        </a>
+        <a 
+          href="/dashboard/grants"
+          style={`
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            font-weight: 500;
+            color: ${currentPath === '/dashboard/grants' ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            background: ${currentPath === '/dashboard/grants' ? 'var(--color-accent-subtle)' : 'transparent'};
+          `}
+          onmouseover="this.style.background = this.style.background === 'transparent' ? 'var(--color-bg-subtle)' : this.style.background"
+          onmouseout="this.style.background = this.dataset.active === 'true' ? 'var(--color-accent-subtle)' : 'transparent'"
+          data-active={currentPath === '/dashboard/grants'}
+        >
+          Grants
+        </a>
+        <a 
+          href="/dashboard/partners"
+          style={`
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            font-weight: 500;
+            color: ${currentPath === '/dashboard/partners' ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            background: ${currentPath === '/dashboard/partners' ? 'var(--color-accent-subtle)' : 'transparent'};
+          `}
+          onmouseover="this.style.background = this.style.background === 'transparent' ? 'var(--color-bg-subtle)' : this.style.background"
+          onmouseout="this.style.background = this.dataset.active === 'true' ? 'var(--color-accent-subtle)' : 'transparent'"
+          data-active={currentPath === '/dashboard/partners'}
+        >
+          Partners
+        </a>
+        <a 
+          href="/dashboard/meetings"
+          style={`
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            font-weight: 500;
+            color: ${currentPath === '/dashboard/meetings' ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            background: ${currentPath === '/dashboard/meetings' ? 'var(--color-accent-subtle)' : 'transparent'};
+          `}
+          onmouseover="this.style.background = this.style.background === 'transparent' ? 'var(--color-bg-subtle)' : this.style.background"
+          onmouseout="this.style.background = this.dataset.active === 'true' ? 'var(--color-accent-subtle)' : 'transparent'"
+          data-active={currentPath === '/dashboard/meetings'}
+        >
+          Meetings
+        </a>
+        <a 
+          href="/dashboard/documents"
+          style={`
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            font-weight: 500;
+            color: ${currentPath === '/dashboard/documents' ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            background: ${currentPath === '/dashboard/documents' ? 'var(--color-accent-subtle)' : 'transparent'};
+          `}
+          onmouseover="this.style.background = this.style.background === 'transparent' ? 'var(--color-bg-subtle)' : this.style.background"
+          onmouseout="this.style.background = this.dataset.active === 'true' ? 'var(--color-accent-subtle)' : 'transparent'"
+          data-active={currentPath === '/dashboard/documents'}
+        >
+          Documents
+        </a>
+      </nav>
+
+      <!-- User Menu -->
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+      ">
+        <UserButton 
+          afterSignOutUrl="/"
+          appearance={{
+            elements: {
+              avatarBox: "w-8 h-8 rounded-md"
+            }
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</header>

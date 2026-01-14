@@ -1,0 +1,454 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+// Get the authenticated user from Clerk
+const { userId } = Astro.locals.auth();
+
+// Mock data for demonstration
+const upcomingMeetings = [
+  { date: '2026-02-15', title: 'Q1 Board Meeting', time: '9:00 AM CST' },
+  { date: '2026-03-01', title: 'Grant Review Committee', time: '2:00 PM CST' },
+];
+
+const pendingGrants = [
+  { organization: 'Nashville Hope Center', amount: '$50,000', program: 'Ministry Leadership' },
+  { organization: 'Faith & Work Initiative', amount: '$75,000', program: 'Faith & Work' },
+  { organization: 'Global Missions Network', amount: '$100,000', program: 'Strategic Grants' },
+];
+
+const recentActivity = [
+  { action: 'Grant approved', organization: 'Urban Ministry Coalition', date: '2026-01-05' },
+  { action: 'Application received', organization: 'Christian Leadership Institute', date: '2026-01-03' },
+  { action: 'Site visit scheduled', organization: 'Marketplace Ministries', date: '2026-01-02' },
+];
+---
+
+<Layout title="Board Portal - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Welcome Section -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        margin-bottom: var(--space-6);
+      ">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+          <div>
+            <h1 style="
+              font-size: 24px;
+              font-weight: 600;
+              letter-spacing: -0.02em;
+              color: var(--color-text-primary);
+              margin-bottom: var(--space-3);
+            ">
+              Board Portal
+            </h1>
+            <p style="
+              color: var(--color-text-secondary);
+              max-width: 640px;
+              line-height: 1.6;
+            ">
+              "Participating in God's work in the world by offering financial, strategic and operational support in collaboration with Christian organizations and their leaders."
+            </p>
+          </div>
+          {userId && (
+            <div class="badge badge-success" style="flex-shrink: 0;">
+              ✓ Authenticated
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Quick Stats - Each card designed for its content -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--space-4);
+        margin-bottom: var(--space-8);
+      ">
+        <!-- Pending Reviews Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Pending Reviews
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: var(--color-accent-subtle);
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+          </div>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+          ">
+            8
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Awaiting decision
+          </div>
+        </div>
+
+        <!-- YTD Grants Card - Monospace for financial data -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              YTD Grants
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: var(--color-success-bg);
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.4M
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Across all programs
+          </div>
+        </div>
+
+        <!-- Active Partners Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Active Partners
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: #f3f4f6;
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: #6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+          </div>
+          <div style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+          ">
+            42
+          </div>
+          <div style="
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Organizations supported
+          </div>
+        </div>
+
+        <!-- Next Meeting Card -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <div style="
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+          ">
+            <span class="label" style="color: var(--color-text-muted);">
+              Next Meeting
+            </span>
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: #fef3c7;
+              border-radius: var(--radius-sm);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <svg style="width: 16px; height: 16px; color: #d97706;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+          <div style="
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-1);
+          ">
+            Feb 15
+          </div>
+          <div style="
+            font-size: 12px;
+            color: var(--color-text-muted);
+          ">
+            Q1 Board Meeting
+          </div>
+        </div>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+        margin-bottom: var(--space-6);
+      ">
+        <!-- Pending Grant Applications -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+          ">
+            <h2 style="
+              font-size: 16px;
+              font-weight: 600;
+              color: var(--color-text-primary);
+            ">
+              Pending Grant Applications
+            </h2>
+            <a href="/dashboard/grants" style="
+              font-size: 12px;
+              color: var(--color-accent);
+              text-decoration: none;
+              font-weight: 500;
+            ">
+              View all →
+            </a>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+            {pendingGrants.map((grant) => (
+              <div style="
+                padding: var(--space-3);
+                border: 0.5px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                transition: all var(--transition-fast);
+                cursor: pointer;
+              "
+              onmouseover="this.style.background='var(--color-bg-subtle)'"
+              onmouseout="this.style.background='transparent'">
+                <div style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: start;
+                  margin-bottom: var(--space-2);
+                ">
+                  <div style="
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: var(--color-text-primary);
+                  ">
+                    {grant.organization}
+                  </div>
+                  <div class="mono" style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: var(--color-text-primary);
+                  ">
+                    {grant.amount}
+                  </div>
+                </div>
+                <div class="badge badge-neutral" style="font-size: 10px;">
+                  {grant.program}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-6);
+        ">
+          <h2 style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+          ">
+            Recent Activity
+          </h2>
+          
+          <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+            {recentActivity.map((activity, index) => (
+              <div style={`
+                display: flex;
+                gap: var(--space-3);
+                padding-bottom: var(--space-4);
+                ${index !== recentActivity.length - 1 ? 'border-bottom: 0.5px solid var(--color-border);' : ''}
+              `}>
+                <div style="
+                  width: 6px;
+                  height: 6px;
+                  background: var(--color-accent);
+                  border-radius: 50%;
+                  margin-top: 6px;
+                  flex-shrink: 0;
+                "></div>
+                <div style="flex: 1;">
+                  <div style="
+                    font-size: 13px;
+                    color: var(--color-text-primary);
+                    margin-bottom: var(--space-1);
+                  ">
+                    <span style="font-weight: 500;">{activity.action}</span>
+                    <span style="color: var(--color-text-secondary);"> — {activity.organization}</span>
+                  </div>
+                  <div class="mono" style="
+                    font-size: 11px;
+                    color: var(--color-text-faint);
+                  ">
+                    {activity.date}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Meetings -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+      ">
+        <h2 style="
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-4);
+        ">
+          Upcoming Meetings
+        </h2>
+        
+        <div style="display: flex; gap: var(--space-4);">
+          {upcomingMeetings.map((meeting) => (
+            <div style="
+              flex: 1;
+              padding: var(--space-4);
+              border: 0.5px solid var(--color-border);
+              border-radius: var(--radius-sm);
+              transition: all var(--transition-fast);
+              cursor: pointer;
+            "
+            onmouseover="this.style.background='var(--color-bg-subtle)'"
+            onmouseout="this.style.background='transparent'">
+              <div class="mono" style="
+                font-size: 11px;
+                color: var(--color-text-faint);
+                margin-bottom: var(--space-2);
+              ">
+                {meeting.date}
+              </div>
+              <div style="
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin-bottom: var(--space-1);
+              ">
+                {meeting.title}
+              </div>
+              <div class="mono" style="
+                font-size: 12px;
+                color: var(--color-text-secondary);
+              ">
+                {meeting.time}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

@@ -1,0 +1,330 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+// Mock grant data
+const grants = [
+  {
+    id: 'GR-2026-001',
+    organization: 'Nashville Hope Center',
+    program: 'Ministry Leadership Development',
+    amount: 50000,
+    status: 'pending',
+    submittedDate: '2026-01-10',
+    requestedDate: '2026-02-01',
+  },
+  {
+    id: 'GR-2026-002',
+    organization: 'Faith & Work Initiative',
+    program: 'Faith & Work Movement',
+    amount: 75000,
+    status: 'under-review',
+    submittedDate: '2026-01-08',
+    requestedDate: '2026-02-15',
+  },
+  {
+    id: 'GR-2026-003',
+    organization: 'Global Missions Network',
+    program: 'Strategic Grants',
+    amount: 100000,
+    status: 'approved',
+    submittedDate: '2025-12-20',
+    requestedDate: '2026-01-15',
+  },
+  {
+    id: 'GR-2026-004',
+    organization: 'Urban Ministry Coalition',
+    program: 'Ministry Leadership Development',
+    amount: 45000,
+    status: 'approved',
+    submittedDate: '2025-12-15',
+    requestedDate: '2026-01-05',
+  },
+  {
+    id: 'GR-2026-005',
+    organization: 'Christian Leadership Institute',
+    program: 'Faith & Work Movement',
+    amount: 60000,
+    status: 'pending',
+    submittedDate: '2026-01-12',
+    requestedDate: '2026-02-20',
+  },
+];
+
+const formatCurrency = (amount: number) => {
+  return `$${(amount / 1000).toFixed(0)}K`;
+};
+
+const getStatusBadge = (status: string) => {
+  const styles = {
+    'pending': 'badge badge-warning',
+    'under-review': 'badge badge-neutral',
+    'approved': 'badge badge-success',
+  };
+  return styles[status as keyof typeof styles] || 'badge badge-neutral';
+};
+
+const getStatusText = (status: string) => {
+  const texts = {
+    'pending': 'Pending',
+    'under-review': 'Under Review',
+    'approved': 'Approved',
+  };
+  return texts[status as keyof typeof texts] || status;
+};
+---
+
+<Layout title="Grants - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Grant Applications
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Review and manage grant applications across all programs
+        </p>
+      </div>
+
+      <!-- Filters & Actions -->
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-4);
+      ">
+        <div style="display: flex; gap: var(--space-2);">
+          <button class="btn btn-secondary">
+            All Applications
+          </button>
+          <button class="btn btn-secondary">
+            Pending
+          </button>
+          <button class="btn btn-secondary">
+            Under Review
+          </button>
+          <button class="btn btn-secondary">
+            Approved
+          </button>
+        </div>
+        <button class="btn btn-primary">
+          + New Application
+        </button>
+      </div>
+
+      <!-- Grants Table -->
+      <div style="
+        background: var(--color-bg-surface);
+        border: 0.5px solid var(--color-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      ">
+        <table style="
+          width: 100%;
+          border-collapse: collapse;
+        ">
+          <thead>
+            <tr style="
+              background: var(--color-bg-subtle);
+              border-bottom: 0.5px solid var(--color-border);
+            ">
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Grant ID
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Organization
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Program
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: right;
+                font-weight: 500;
+              ">
+                Amount
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Status
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: left;
+                font-weight: 500;
+              ">
+                Submitted
+              </th>
+              <th class="label" style="
+                padding: var(--space-3) var(--space-4);
+                text-align: right;
+                font-weight: 500;
+              ">
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {grants.map((grant, index) => (
+              <tr style={`
+                border-bottom: 0.5px solid var(--color-border);
+                transition: background var(--transition-fast);
+                ${index === grants.length - 1 ? 'border-bottom: none;' : ''}
+              `}
+              onmouseover="this.style.background='var(--color-bg-subtle)'"
+              onmouseout="this.style.background='transparent'">
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  color: var(--color-text-secondary);
+                ">
+                  {grant.id}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  font-weight: 500;
+                  color: var(--color-text-primary);
+                ">
+                  {grant.organization}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  font-size: 12px;
+                  color: var(--color-text-secondary);
+                  max-width: 160px;
+                ">
+                  {grant.program}
+                </td>
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--color-text-primary);
+                  text-align: right;
+                ">
+                  {formatCurrency(grant.amount)}
+                </td>
+                <td style="padding: var(--space-4);">
+                  <span class={getStatusBadge(grant.status)}>
+                    {getStatusText(grant.status)}
+                  </span>
+                </td>
+                <td class="mono" style="
+                  padding: var(--space-4);
+                  font-size: 12px;
+                  color: var(--color-text-muted);
+                ">
+                  {grant.submittedDate}
+                </td>
+                <td style="
+                  padding: var(--space-4);
+                  text-align: right;
+                ">
+                  <button class="btn btn-secondary" style="
+                    padding: 6px var(--space-3);
+                    font-size: 12px;
+                  ">
+                    Review
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Cards -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-4);
+        margin-top: var(--space-6);
+      ">
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Total Pending
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $185K
+          </div>
+        </div>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Approved YTD
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $2.4M
+          </div>
+        </div>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+        ">
+          <span class="label" style="display: block; margin-bottom: var(--space-2);">
+            Avg Grant Size
+          </span>
+          <div class="mono" style="
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+          ">
+            $66K
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

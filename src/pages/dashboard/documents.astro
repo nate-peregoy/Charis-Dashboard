@@ -1,0 +1,320 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+// Mock documents data
+const documents = [
+  {
+    name: '2026 Strategic Plan',
+    category: 'Strategy',
+    type: 'PDF',
+    size: '2.4 MB',
+    updated: '2026-01-05',
+  },
+  {
+    name: 'Q4 2025 Financial Report',
+    category: 'Financials',
+    type: 'PDF',
+    size: '1.8 MB',
+    updated: '2026-01-10',
+  },
+  {
+    name: 'Investment Policy Statement',
+    category: 'Governance',
+    type: 'PDF',
+    size: '856 KB',
+    updated: '2025-12-15',
+  },
+  {
+    name: 'Board Meeting Minutes - January',
+    category: 'Minutes',
+    type: 'PDF',
+    size: '324 KB',
+    updated: '2026-01-12',
+  },
+  {
+    name: 'Grant Application Template',
+    category: 'Templates',
+    type: 'DOCX',
+    size: '125 KB',
+    updated: '2025-11-20',
+  },
+  {
+    name: 'Conflict of Interest Policy',
+    category: 'Governance',
+    type: 'PDF',
+    size: '445 KB',
+    updated: '2025-09-15',
+  },
+];
+
+const categories = [
+  { name: 'All Documents', count: 24 },
+  { name: 'Strategy', count: 5 },
+  { name: 'Financials', count: 8 },
+  { name: 'Governance', count: 6 },
+  { name: 'Minutes', count: 4 },
+  { name: 'Templates', count: 1 },
+];
+---
+
+<Layout title="Documents - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Board Documents
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          Access governance documents, financial reports, and meeting materials
+        </p>
+      </div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: var(--space-6);
+      ">
+        <!-- Categories Sidebar -->
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          padding: var(--space-4);
+          height: fit-content;
+        ">
+          <span class="label" style="
+            display: block;
+            margin-bottom: var(--space-3);
+          ">
+            Categories
+          </span>
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+          ">
+            {categories.map((category, index) => (
+              <button style={`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--space-2) var(--space-3);
+                border: none;
+                background: ${index === 0 ? 'var(--color-accent-subtle)' : 'transparent'};
+                color: ${index === 0 ? 'var(--color-accent)' : 'var(--color-text-secondary)'};
+                border-radius: var(--radius-sm);
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all var(--transition-fast);
+                text-align: left;
+              `}
+              onmouseover="if (this.style.background !== 'var(--color-accent-subtle)') this.style.background='var(--color-bg-subtle)'"
+              onmouseout="if (this.style.color !== 'var(--color-accent)') this.style.background='transparent'">
+                <span>{category.name}</span>
+                <span class="mono" style="
+                  font-size: 11px;
+                  color: var(--color-text-faint);
+                ">
+                  {category.count}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Documents List -->
+        <div>
+          <!-- Search & Actions -->
+          <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+          ">
+            <div style="
+              display: flex;
+              align-items: center;
+              gap: var(--space-2);
+              flex: 1;
+              max-width: 400px;
+            ">
+              <div style="
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: var(--space-2);
+                background: var(--color-bg-surface);
+                border: 0.5px solid var(--color-border);
+                border-radius: var(--radius-sm);
+                padding: var(--space-2) var(--space-3);
+              ">
+                <svg style="width: 14px; height: 14px; color: var(--color-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input 
+                  type="text" 
+                  placeholder="Search documents..." 
+                  style="
+                    flex: 1;
+                    border: none;
+                    background: transparent;
+                    font-size: 13px;
+                    color: var(--color-text-primary);
+                    outline: none;
+                  "
+                />
+              </div>
+            </div>
+            <button class="btn btn-primary">
+              + Upload Document
+            </button>
+          </div>
+
+          <!-- Documents Table -->
+          <div style="
+            background: var(--color-bg-surface);
+            border: 0.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+          ">
+            <table style="
+              width: 100%;
+              border-collapse: collapse;
+            ">
+              <thead>
+                <tr style="
+                  background: var(--color-bg-subtle);
+                  border-bottom: 0.5px solid var(--color-border);
+                ">
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: left;
+                    font-weight: 500;
+                  ">
+                    Document Name
+                  </th>
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: left;
+                    font-weight: 500;
+                  ">
+                    Category
+                  </th>
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: left;
+                    font-weight: 500;
+                  ">
+                    Type
+                  </th>
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: right;
+                    font-weight: 500;
+                  ">
+                    Size
+                  </th>
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: left;
+                    font-weight: 500;
+                  ">
+                    Updated
+                  </th>
+                  <th class="label" style="
+                    padding: var(--space-3) var(--space-4);
+                    text-align: right;
+                    font-weight: 500;
+                  ">
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((doc, index) => (
+                  <tr style={`
+                    border-bottom: 0.5px solid var(--color-border);
+                    transition: background var(--transition-fast);
+                    ${index === documents.length - 1 ? 'border-bottom: none;' : ''}
+                  `}
+                  onmouseover="this.style.background='var(--color-bg-subtle)'"
+                  onmouseout="this.style.background='transparent'">
+                    <td style="
+                      padding: var(--space-4);
+                      font-size: 13px;
+                      font-weight: 500;
+                      color: var(--color-text-primary);
+                    ">
+                      <div style="
+                        display: flex;
+                        align-items: center;
+                        gap: var(--space-2);
+                      ">
+                        <svg style="width: 16px; height: 16px; color: var(--color-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        {doc.name}
+                      </div>
+                    </td>
+                    <td style="
+                      padding: var(--space-4);
+                      font-size: 12px;
+                      color: var(--color-text-secondary);
+                    ">
+                      {doc.category}
+                    </td>
+                    <td style="padding: var(--space-4);">
+                      <span class="badge badge-neutral" style="font-size: 10px;">
+                        {doc.type}
+                      </span>
+                    </td>
+                    <td class="mono" style="
+                      padding: var(--space-4);
+                      font-size: 12px;
+                      color: var(--color-text-muted);
+                      text-align: right;
+                    ">
+                      {doc.size}
+                    </td>
+                    <td class="mono" style="
+                      padding: var(--space-4);
+                      font-size: 12px;
+                      color: var(--color-text-muted);
+                    ">
+                      {doc.updated}
+                    </td>
+                    <td style="
+                      padding: var(--space-4);
+                      text-align: right;
+                    ">
+                      <button class="btn btn-secondary" style="
+                        padding: 6px var(--space-3);
+                        font-size: 12px;
+                      ">
+                        Download
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

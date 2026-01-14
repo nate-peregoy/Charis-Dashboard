@@ -1,0 +1,331 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+// Mock meetings data
+const upcomingMeetings = [
+  {
+    date: '2026-02-15',
+    title: 'Q1 Board Meeting',
+    time: '9:00 AM - 12:00 PM CST',
+    location: 'Board Room, Nashville Office',
+    agenda: ['Financial Review', 'Grant Approvals', 'Strategic Planning'],
+  },
+  {
+    date: '2026-03-01',
+    title: 'Grant Review Committee',
+    time: '2:00 PM - 4:00 PM CST',
+    location: 'Virtual - Zoom',
+    agenda: ['Application Reviews', 'Due Diligence Updates'],
+  },
+  {
+    date: '2026-04-12',
+    title: 'Investment Committee',
+    time: '10:00 AM - 11:30 AM CST',
+    location: 'Board Room, Nashville Office',
+    agenda: ['Portfolio Review', 'Asset Allocation', 'Market Update'],
+  },
+];
+
+const pastMeetings = [
+  {
+    date: '2026-01-10',
+    title: 'Special Board Meeting',
+    hasMinutes: true,
+    hasRecording: false,
+  },
+  {
+    date: '2025-12-05',
+    title: 'Q4 Board Meeting',
+    hasMinutes: true,
+    hasRecording: true,
+  },
+  {
+    date: '2025-11-15',
+    title: 'Grant Review Committee',
+    hasMinutes: true,
+    hasRecording: false,
+  },
+];
+---
+
+<Layout title="Meetings - Charis Foundation">
+  <div style="min-height: 100vh; background: var(--color-bg-base);">
+    <Header title="Charis Foundation" />
+
+    <main style="
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    ">
+      <!-- Page Header -->
+      <div style="margin-bottom: var(--space-6);">
+        <h1 style="
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-2);
+        ">
+          Board Meetings
+        </h1>
+        <p style="color: var(--color-text-secondary);">
+          View upcoming meetings and access past meeting materials
+        </p>
+      </div>
+
+      <!-- Upcoming Meetings -->
+      <div style="margin-bottom: var(--space-8);">
+        <h2 style="
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-4);
+        ">
+          Upcoming Meetings
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+          {upcomingMeetings.map((meeting) => (
+            <div style="
+              background: var(--color-bg-surface);
+              border: 0.5px solid var(--color-border);
+              border-radius: var(--radius-md);
+              padding: var(--space-6);
+              transition: all var(--transition-fast);
+              cursor: pointer;
+            "
+            onmouseover="this.style.borderColor='var(--color-border-strong)'"
+            onmouseout="this.style.borderColor='var(--color-border)'">
+              <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
+                margin-bottom: var(--space-4);
+              ">
+                <div>
+                  <h3 style="
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: var(--color-text-primary);
+                    margin-bottom: var(--space-2);
+                  ">
+                    {meeting.title}
+                  </h3>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-4);
+                  ">
+                    <div style="display: flex; align-items: center; gap: var(--space-2);">
+                      <svg style="width: 14px; height: 14px; color: var(--color-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span class="mono" style="
+                        font-size: 13px;
+                        color: var(--color-text-secondary);
+                      ">
+                        {meeting.date}
+                      </span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-2);">
+                      <svg style="width: 14px; height: 14px; color: var(--color-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span class="mono" style="
+                        font-size: 13px;
+                        color: var(--color-text-secondary);
+                      ">
+                        {meeting.time}
+                      </span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-2);">
+                      <svg style="width: 14px; height: 14px; color: var(--color-text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span style="
+                        font-size: 13px;
+                        color: var(--color-text-secondary);
+                      ">
+                        {meeting.location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary">
+                  View Details
+                </button>
+              </div>
+
+              <div style="
+                padding-top: var(--space-4);
+                border-top: 0.5px solid var(--color-border);
+              ">
+                <span class="label" style="
+                  display: block;
+                  margin-bottom: var(--space-2);
+                ">
+                  Agenda
+                </span>
+                <ul style="
+                  list-style: none;
+                  padding: 0;
+                  margin: 0;
+                  display: flex;
+                  flex-direction: column;
+                  gap: var(--space-1);
+                ">
+                  {meeting.agenda.map((item) => (
+                    <li style="
+                      font-size: 13px;
+                      color: var(--color-text-secondary);
+                      padding-left: var(--space-4);
+                      position: relative;
+                    ">
+                      <span style="
+                        position: absolute;
+                        left: 0;
+                        color: var(--color-text-muted);
+                      ">
+                        •
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Past Meetings -->
+      <div>
+        <h2 style="
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--color-text-primary);
+          margin-bottom: var(--space-4);
+        ">
+          Past Meetings
+        </h2>
+
+        <div style="
+          background: var(--color-bg-surface);
+          border: 0.5px solid var(--color-border);
+          border-radius: var(--radius-md);
+          overflow: hidden;
+        ">
+          <table style="
+            width: 100%;
+            border-collapse: collapse;
+          ">
+            <thead>
+              <tr style="
+                background: var(--color-bg-subtle);
+                border-bottom: 0.5px solid var(--color-border);
+              ">
+                <th class="label" style="
+                  padding: var(--space-3) var(--space-4);
+                  text-align: left;
+                  font-weight: 500;
+                ">
+                  Date
+                </th>
+                <th class="label" style="
+                  padding: var(--space-3) var(--space-4);
+                  text-align: left;
+                  font-weight: 500;
+                ">
+                  Meeting
+                </th>
+                <th class="label" style="
+                  padding: var(--space-3) var(--space-4);
+                  text-align: center;
+                  font-weight: 500;
+                ">
+                  Minutes
+                </th>
+                <th class="label" style="
+                  padding: var(--space-3) var(--space-4);
+                  text-align: center;
+                  font-weight: 500;
+                ">
+                  Recording
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {pastMeetings.map((meeting, index) => (
+                <tr style={`
+                  border-bottom: 0.5px solid var(--color-border);
+                  transition: background var(--transition-fast);
+                  ${index === pastMeetings.length - 1 ? 'border-bottom: none;' : ''}
+                `}
+                onmouseover="this.style.background='var(--color-bg-subtle)'"
+                onmouseout="this.style.background='transparent'">
+                  <td class="mono" style="
+                    padding: var(--space-4);
+                    font-size: 13px;
+                    color: var(--color-text-secondary);
+                  ">
+                    {meeting.date}
+                  </td>
+                  <td style="
+                    padding: var(--space-4);
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--color-text-primary);
+                  ">
+                    {meeting.title}
+                  </td>
+                  <td style="
+                    padding: var(--space-4);
+                    text-align: center;
+                  ">
+                    {meeting.hasMinutes ? (
+                      <button class="btn btn-secondary" style="
+                        padding: 4px var(--space-2);
+                        font-size: 11px;
+                      ">
+                        Download
+                      </button>
+                    ) : (
+                      <span style="
+                        font-size: 12px;
+                        color: var(--color-text-faint);
+                      ">
+                        —
+                      </span>
+                    )}
+                  </td>
+                  <td style="
+                    padding: var(--space-4);
+                    text-align: center;
+                  ">
+                    {meeting.hasRecording ? (
+                      <button class="btn btn-secondary" style="
+                        padding: 4px var(--space-2);
+                        font-size: 11px;
+                      ">
+                        Watch
+                      </button>
+                    ) : (
+                      <span style="
+                        font-size: 12px;
+                        color: var(--color-text-faint);
+                      ">
+                        —
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
